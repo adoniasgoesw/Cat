@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teach Cat</title>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Fundo claro */
+            position: relative; /* Adicionando posição relativa para o body */
+        }
+
+        #gameMap {
+            position: absolute; /* Permite que o contêiner seja posicionado no centro */
+            width: 500px; /* Largura máxima dos botões */
+            top: 50%; /* Move para o meio verticalmente */
+            left: 50%; /* Move para o meio horizontalmente */
+            transform: translate(-50%, -50%); /* Centraliza o contêiner */
+        }
+
+        .map {
+            position: absolute; /* Permite posicionar cada botão */
+            width: 80px; /* Tamanho do botão */
+            height: 80px; /* Tamanho do botão */
+            border-radius: 50%; /* Forma redonda */
+            background-color: purple; /* Cor roxa */
+            border: 5px solid darkviolet; /* Borda roxa escura */
+            color: white;
+            font-size: 1.2rem; /* Tamanho da fonte */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease; /* Transição suave para transformações */
+        }
+
+        .map:hover {
+            transform: scale(1.1); /* Aumenta levemente o botão ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div id="gameMap"></div> <!-- Contêiner para os botões do mapa -->
+
+    <script>
+        // Função para criar e posicionar os botões de nível
+        function createLevelButtons() {
+            const levels = Array.from({ length: 10 }, (_, i) => i + 1); // Cria um array de 1 a 10
+            const gameMap = document.getElementById('gameMap');
+
+            levels.forEach((level, index) => {
+                const button = document.createElement('button'); // Cria um botão
+                button.className = 'map';
+                button.innerText = `Nivel ${level}`;
+
+                // Define a posição vertical dos botões com menor espaçamento
+                const y = 30 + index * 60; // Ajuste do espaçamento vertical
+
+                // Gera uma posição horizontal aleatória dentro de uma largura de 500px
+                const x = Math.random() * (500 - 80); // 500 é a largura máxima e 80 é a largura do botão
+
+                button.style.left = `${x}px`;
+                button.style.top = `${y}px`;
+
+                // Adiciona o evento de clique para o Nível 1
+                button.onclick = () => {
+                    if (level === 1) {
+                        window.location.href = 'index.html'; // Redireciona para index.html
+                    } else {
+                        alert(`Você clicou no ${button.innerText}`);
+                    }
+                };
+
+                gameMap.appendChild(button); // Adiciona o botão ao contêiner
+            });
+        }
+
+        // Inicializa a criação dos botões quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', createLevelButtons);
+    </script>
+</body>
+</html>
